@@ -10,9 +10,7 @@ const Event = (data) => {
 }
 
 const ManyEvents = (events) => {
-    events.forEach(async (event) => {
-        await Event(event)
-    })
+    return EventModel.insertMany(events)
 }
 
 module.exports = {

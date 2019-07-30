@@ -12,9 +12,9 @@ router.get('/list', async (req, res, next) => {
 })
 
 router.post('/add', async (req, res, next) => {
-    const data = req.body.data
+    const data = req.body
     let result = await Event(data)
-    res.send(result)
+    res.send(result._id)
 })
 
 module.exports = router
