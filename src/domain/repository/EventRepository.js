@@ -1,20 +1,19 @@
-const EventModel = require('../../infraestructure/schemas/Event')
+const EventModel = require('../../infraestructure/schemas/Event');
 
-const EventsByResponsible = async (id) => {
-    //{ responsible: id }
-    return await EventModel.find()
-}
+const EventsByResponsible = async id => {
+  return await EventModel.find();
+};
 
-const Event = (data) => {
-    return new EventModel(data).save()
-}
+const Event = data => {
+  return new EventModel(data).save();
+};
 
-const ManyEvents = (events) => {
-    return EventModel.insertMany(events)
-}
+const ManyEvents = events => {
+  return EventModel.insertMany(events);
+};
 
 module.exports = {
-    EventsByResponsible,
-    Event,
-    ManyEvents
-}
+  EventsByResponsible,
+  Event,
+  ManyEvents
+};
