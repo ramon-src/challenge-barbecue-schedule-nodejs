@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('../../src/app/server');
-let testDB = require('../../src/infraestructure/db/testDB')
+const app = require('../src/app/server');
+let testDB = require('../src/infraestructure/db/testDB')
 
 describe('Events API', function () {
 
