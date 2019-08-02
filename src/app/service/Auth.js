@@ -1,12 +1,12 @@
-const jwt = require('jsonwebtoken');
-const { secret } = require('../config');
+const jwt = require('jsonwebtoken')
+const { secret } = require('../config')
 
 const expireIn = months => {
-  const today = new Date();
-  const expiration = new Date(today);
-  expiration.setDate(today.getDate() + months * 30);
-  return parseInt(expiration.getTime() / 1000);
-};
+  const today = new Date()
+  const expiration = new Date(today)
+  expiration.setDate(today.getDate() + months * 30)
+  return parseInt(expiration.getTime() / 1000)
+}
 
 // const Auth = require('../../app/service/Auth')
 // userSchema.methods.generateJWT = function () {
@@ -32,6 +32,6 @@ module.exports = {
         expiration: expireIn(2)
       },
       secret
-    );
+    )
   }
-};
+}

@@ -1,8 +1,9 @@
-const { Schema, model } = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
-const crypto = require('crypto');
+const { Schema, model } = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
+let mongooseHidden = require('mongoose-hidden')()
+const crypto = require('crypto')
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     required: [true, "can't be blank"],
@@ -17,24 +18,32 @@ const userSchema = new Schema({
     match: [/\S+@\S+\.\S+/, 'is invalid'],
     index: true
   },
-  salt: String,
-  hash: String
-});
+  salt: { type: String, hideJSON: true },
+  hash: { type: String, hideJSON: true }
+})
 
-userSchema.methods.setPassword = function(password) {
-  this.salt = crypto.randomBytes(16).toString('hex');
+UserSchema.methods.setPassword = function(password) {
+  this.salt = crypto.randomBytes(16).toString('hex')
   this.hash = crypto
     .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
-    .toString('hex');
-};
+    .toString('hex')
+}
 
-userSchema.methods.validPassword = function(password) {
+UserSchema.methods.validPassword = function(password) {
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
-    .toString('hex');
-  return this.hash === hash;
-};
+    .toString('hex')
+  return this.hash === hash
+}
 
-userSchema.plugin(uniqueValidator, { message: 'is already taken.' });
+UserSchema.plugin(uniqueValidator, { message: 'is already taken.' })
+UserSchema.plugin(mongooseHidden)
 
-module.exports = model('User', userSchema);
+UserSchema.set('toJSON', {
+  virtuals: true
+})
+
+module.exports = {
+  UserModel: model('User', UserSchema),
+  UserSchema
+}

@@ -1,6 +1,6 @@
-const Mongoose = require('../db');
-var connection = Mongoose.connection;
-const { ManyEvents } = require('../../domain/repository/EventRepository');
+const Mongoose = require('../db')
+var connection = Mongoose.connection
+const { ManyEvents } = require('../../domain/repository/EventRepository')
 
 ManyEvents([
   {
@@ -17,4 +17,4 @@ ManyEvents([
     contribution: 15,
     amount: 0
   }
-]);
+])

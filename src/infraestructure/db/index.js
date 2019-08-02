@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const config = require('../../app/config');
+const mongoose = require('mongoose')
+const config = require('../../app/config')
 try {
-  mongoose.connect(config.db, { useNewUrlParser: true });
+  mongoose.connect(config.db, { useNewUrlParser: true })
 } catch (error) {
-  console.log(error);
+  console.log(error)
 }
 
-module.exports = mongoose;
+module.exports = mongoose
