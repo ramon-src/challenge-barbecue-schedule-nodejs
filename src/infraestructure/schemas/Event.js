@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-
+const { ConfirmedPeopleSchema } = require('./ConfirmedPeople')
 let mongooseHidden = require('mongoose-hidden')()
 
 const EventSchema = new Schema({
@@ -10,8 +10,7 @@ const EventSchema = new Schema({
   contribution: Number,
   amount: Number,
   confirmedPeople: {
-    type: [Schema.Types.ObjectId],
-    ref: 'User'
+    type: [ConfirmedPeopleSchema]
   },
   responsible: {
     type: Schema.Types.ObjectId,

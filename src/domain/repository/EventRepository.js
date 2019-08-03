@@ -1,12 +1,30 @@
 const { EventModel } = require('../../infraestructure/schemas/Event')
 
-const EventsByResponsible = async id => {
-  return await EventModel.find()
+const Events = () => {
+  return EventModel.find()
+}
+
+const EventInfoById = id => {
+  return EventModel.findOne({ _id: id }).populate('confirmedPeople.user')
+}
+
+const ConfirmPresence = async data => {
+  let event = await EventModel.findById(data.eventId)
+  event.confirmedPeople.push({
+    user: data.userId,
+    contributionValue: data.contributionValue
+  })
+  return event.save()
+}
+
+const Unsubscribe = async data => {
+  let event = await EventModel.findById(data.eventId)
+  event.confirmedPeople.id(data.id).remove()
+  return event.save()
 }
 
 const Event = async data => {
   let event = new EventModel(data)
-  event.confirmedPeople.push(data.responsible)
   return event.save()
 }
 
@@ -15,7 +33,10 @@ const ManyEvents = events => {
 }
 
 module.exports = {
-  EventsByResponsible,
+  Events,
   Event,
-  ManyEvents
+  ManyEvents,
+  EventInfoById,
+  ConfirmPresence,
+  Unsubscribe
 }
