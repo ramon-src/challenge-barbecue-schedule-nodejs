@@ -29,12 +29,21 @@ sudo apt install -y mongodb && systemctl status mongodb
 
 
 
-## SEEDING MONGO
+## SEEDING USERS
 
-Prepare Env script runs the seeders which creates the whole collections
+Add some users by requesting the API
+First you need to install something like Postman or Advanced Rest API
 
-```sh
-npm run prepare-env
+Start the Nodejs App, then run:
+```
+POST: http://localhost:8080/user/add
+With: Content-Type: application/json
+And Raw Body: {
+	"username": "Robert Martin",
+	"email": "robertmartin@gmail.com",
+	"password": "a"
+}
+
 ```
 
 ## USING MONGO SHELL TO VALIDATE
@@ -48,7 +57,7 @@ show dbs
 
 use barbecueschedule
 
-db.events.find().pretty()
+db.user.find().pretty()
 
 ```
 
@@ -79,4 +88,23 @@ so you can "Launch debugging Barbecue Schedule" inside vscode
         }
     ]
 }
+```
+
+## USAGE
+
+### START THE APP
+
+```sh
+npm start
+```
+
+or if you want hot reload
+
+```sh
+npm run dev
+```
+### TEST THE APP
+
+```sh
+npm run functional-test
 ```
